@@ -43,8 +43,8 @@ namespace MySite.Controllers
             try
             {
                 var toEmail = "dogbanx@gmail.com";
-                var subject = "Test3";
-                var message = "Hello";
+                var subject = "You have successfully subscribed to my site's newsletter";
+                var message = "Hello, you have successfully subscribed to my site's newsletter";
                 _emailsender.SendEmail(toEmail, subject, message).GetAwaiter();
                 return Ok();
 

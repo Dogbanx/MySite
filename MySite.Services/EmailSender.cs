@@ -1,10 +1,10 @@
-﻿//using MimeKit;
-//using MailKit.Net.Smtp;
-//using MailKit.Security;
+﻿using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 
-using System.Net;
-using System.Net.Mail;
+//using System.Net;
+//using System.Net.Mail;
 
 namespace MySite.Services
 {
@@ -36,48 +36,53 @@ namespace MySite.Services
                 //emailMessage.Body = builder.ToMessageBody();
 
                 //using var smth = new SmtpClient();
-                //smth.Connect(smtpServer,smtpPort, SecureSocketOptions.StartTls);
+                //smth.Connect(smtpServer, smtpPort, SecureSocketOptions.StartTls);
                 //smth.Authenticate(smtpEmail, smtpPassword);
                 //await smth.SendAsync(emailMessage);
                 //smth.Disconnect(true);
 
-                //throw new NotImplementedException();
 
                 //1
 
 
-                //emailMessage.From.Add(new MailboxAddress("Your Name", smtpEmail));
-                //emailMessage.To.Add(new MailboxAddress("1", toEmail));
-                //emailMessage.Subject = subject;
+                var smtpServer = _configuration["EmailSettings:SmtpServer"];
+                //var smtpPort = int.Parse(s: _configuration["EmailSettings:SmtpPort"]);
+                var smtpEmail = _configuration["EmailSettings:SmtpEmail"];
+                var smtpPassword = _configuration["EmailSettings:SmtpPassword"];
 
-                //var bodyBuilder = new BodyBuilder();
-                //bodyBuilder.HtmlBody = message;
+                var emailMessage = new MimeMessage();
 
-                //emailMessage.Body = bodyBuilder.ToMessageBody();
+                emailMessage.From.Add(new MailboxAddress("Your Name", smtpEmail));
+                emailMessage.To.Add(new MailboxAddress("1", toEmail));
+                emailMessage.Subject = subject;
 
-                //using (var client = new SmtpClient())
-                //{
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = message;
 
-                //    await client.ConnectAsync(smtpServer, 587);
-                //    await client.AuthenticateAsync(smtpEmail, smtpPassword);
-                //    await client.SendAsync(emailMessage);
-                //    await client.DisconnectAsync(true);
-                //}
+                emailMessage.Body = bodyBuilder.ToMessageBody();
 
-                //var smtpServer = _configuration["EmailSettings:SmtpServer"];
-                ////var smtpPort = int.Parse(s: _configuration["EmailSettings:SmtpPort"]);
-                //var smtpEmail = _configuration["EmailSettings:SmtpEmail"];
-                //var smtpPassword = _configuration["EmailSettings:SmtpPassword"];
+                using (var client = new SmtpClient())
+                {
 
-                MailAddress from = new MailAddress("mazurbogdan88@gmail.com", "Your Name");
-                MailAddress to = new MailAddress("dogbanx@gmail.com");
-                MailMessage m = new MailMessage(from, to);
-                m.Subject = "Тест";
-                m.Body = "Тест";
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.Credentials = new NetworkCredential("mazurbogdan88@gmail.com", "jewd svxj fwns hpmy");
-                smtp.EnableSsl = true;
-                await smtp.SendMailAsync(m);
+                    await client.ConnectAsync(smtpServer, 587);
+                    await client.AuthenticateAsync(smtpEmail, smtpPassword);
+                    await client.SendAsync(emailMessage);
+                    await client.DisconnectAsync(true);
+                }
+
+               
+
+                //2
+
+                //MailAddress from = new MailAddress("mazurbogdan88@gmail.com", "Your Name");
+                //MailAddress to = new MailAddress("dogbanx@gmail.com");
+                //MailMessage m = new MailMessage(from, to);
+                //m.Subject = "Тест";
+                //m.Body = "Тест";
+                //SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                //smtp.Credentials = new NetworkCredential("mazurbogdan88@gmail.com", "jewd svxj fwns hpmy");
+                //smtp.EnableSsl = true;
+                //await smtp.SendMailAsync(m);
 
             }
             catch (Exception ex)
