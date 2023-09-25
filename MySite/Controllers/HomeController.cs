@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySite.Models;
+using MySite.Services;
 using System.Diagnostics;
 
 namespace MySite.Controllers
@@ -8,13 +9,24 @@ namespace MySite.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IEmailSender _emailsender;
+
+
+        public HomeController(ILogger<HomeController> logger, IEmailSender emailsender)
         {
             _logger = logger;
+            _emailsender = emailsender;
         }
 
-        public IActionResult Index()
+
+
+        public async Task<IActionResult> Index()
         {
+            var toEmail = "lelah.okuneva92@ethereal.email";
+            var subject = "Test3";
+            var message = "Hello";
+            await _emailsender.SendEmail(toEmail, subject, message);
+
             return View();
         }
 
