@@ -20,13 +20,9 @@ namespace MySite.Controllers
 
 
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var toEmail = "lelah.okuneva92@ethereal.email";
-            var subject = "Test3";
-            var message = "Hello";
-            await _emailsender.SendEmail(toEmail, subject, message);
-
+            
             return View();
         }
 
@@ -39,6 +35,24 @@ namespace MySite.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+       
+        public async Task<IActionResult> SendMail()
+        {
+            try
+            {
+                var toEmail = "dogbanx@gmail.com";
+                var subject = "Test3";
+                var message = "Hello";
+                _emailsender.SendEmail(toEmail, subject, message).GetAwaiter();
+                return Ok();
+
+            }catch(Exception ex)
+            {
+                throw;
+            }
+
         }
     }
 }
