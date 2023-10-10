@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MySite.Models;
-using MySite.Services;
+using MySite.Services.EmailSender;
+using MySite.Services.EmailSender.Model;
 using System.Diagnostics;
 
 namespace MySite.Controllers
@@ -18,11 +20,10 @@ namespace MySite.Controllers
             _emailsender = emailsender;
         }
 
-
+        
 
         public IActionResult Index()
         {
-            
             return View();
         }
 
@@ -37,16 +38,19 @@ namespace MySite.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+
        
-        public async Task<IActionResult> SendMail()
+        [HttpPost]
+        public async Task<IActionResult> SendMail(SendEmailVM EmailVM)
         {
             try
             {
-                var toEmail = "dogbanx@gmail.com";
+                var EmailV = EmailVM.Email;
+                //var toEmail = "dogbanx@gmail.com";                
                 var subject = "You have successfully subscribed to my site's newsletter";
                 var message = "Hello, you have successfully subscribed to my site's newsletter";
-                _emailsender.SendEmail(toEmail, subject, message).GetAwaiter();
-                return Ok();
+                _emailsender.SendEmail(EmailV, subject, message).GetAwaiter();
+                return Ok(message);
 
             }catch(Exception ex)
             {

@@ -6,9 +6,9 @@ using Microsoft.Extensions.Configuration;
 //using System.Net;
 //using System.Net.Mail;
 
-namespace MySite.Services
+namespace MySite.Services.EmailSender
 {
-    public class EmailSender:IEmailSender
+    public class EmailSender : IEmailSender
     {
         public readonly IConfiguration _configuration;
 
@@ -70,7 +70,7 @@ namespace MySite.Services
                     await client.DisconnectAsync(true);
                 }
 
-               
+
 
                 //2
 

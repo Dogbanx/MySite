@@ -1,4 +1,4 @@
-﻿using MySite.Services;
+﻿using MySite.Services.EmailSender;
 
 namespace MySite.Infrastructure.Extensions
 {
