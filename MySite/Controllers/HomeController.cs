@@ -50,9 +50,13 @@ namespace MySite.Controllers
                 var subject = "You have successfully subscribed to my site's newsletter";
                 var message = "Hello, you have successfully subscribed to my site's newsletter";
                 _emailsender.SendEmail(EmailV, subject, message).GetAwaiter();
-                return Ok(message);
 
-            }catch(Exception ex)
+                TempData["SuccessMessage"] = "You have successfully subscribed to my site's newsletter...";
+
+                return RedirectToAction("Index");
+
+            }
+            catch(Exception ex)
             {
                 throw;
             }

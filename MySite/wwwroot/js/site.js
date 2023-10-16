@@ -55,3 +55,20 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 // Write your JavaScript code.
+
+$(document).ready(function () {
+    var alert = $("#custom-alert");
+
+    // Показати повідомлення
+    alert.addClass("show");
+
+    // Автоматичне приховування через 5 секунд
+    setTimeout(function () {
+        alert.removeClass("show");
+    }, 5000);
+
+    // Клік на кнопку закриття
+    alert.find(".close").click(function () {
+        alert.removeClass("show");
+    });
+});
