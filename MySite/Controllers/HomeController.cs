@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MySite.Models;
 using MySite.Services.EmailSender;
 using MySite.Services.EmailSender.Model;
+using Serilog;
 using System.Diagnostics;
 
 namespace MySite.Controllers
@@ -52,6 +53,8 @@ namespace MySite.Controllers
                 _emailsender.SendEmail(EmailV, subject, message).GetAwaiter();
 
                 TempData["SuccessMessage"] = "You have successfully subscribed to my site's newsletter...";
+
+                Log.Information("Email => {@EmailV}", EmailV);
 
                 return RedirectToAction("Index");
 
