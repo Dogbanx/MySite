@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using MySite.Models;
 using MySite.Services.EmailSender;
 using MySite.Services.EmailSender.Model;
@@ -14,17 +16,20 @@ namespace MySite.Controllers
 
         private readonly IEmailSender _emailsender;
 
+       
 
-        public HomeController(ILogger<HomeController> logger, IEmailSender emailsender)
+        public HomeController(ILogger<HomeController> logger, IEmailSender emailsender )
         {
             _logger = logger;
             _emailsender = emailsender;
+           
         }
 
         
 
         public IActionResult Index()
         {
+           
             return View();
         }
 
@@ -64,6 +69,15 @@ namespace MySite.Controllers
                 throw;
             }
 
+        }
+
+        public IActionResult ChangeLanguage(string culture)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)), new CookieOptions()
+            {
+                Expires = DateTimeOffset.UtcNow.AddYears(1)
+            });
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }

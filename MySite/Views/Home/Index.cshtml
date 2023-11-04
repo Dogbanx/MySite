@@ -1,5 +1,6 @@
 ﻿@model MySite.Services.EmailSender.Model.SendEmailVM
 
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -28,9 +29,9 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                <h2 class="text-white mb-4">@Localizer["Information"]</h2>
                 <p class="text-white-50">
-                    Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
+                    @Localizer["Title"] Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
                     <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
                     The theme is open source, and you can use it for any purpose, personal or commercial.
                 </p>
@@ -156,5 +157,7 @@
 
 <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2023</div></footer>
 
-  <a class="btn btn-outline-light btn-lg" asp-action="SendMail" asp-controller="Home" role="button"> Make Order</a>
+<div class="language-selector">
+@await Html.PartialAsync("_LanguageSelector")
+</div>
 
