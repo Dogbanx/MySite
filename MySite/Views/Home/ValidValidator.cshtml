@@ -1,0 +1,88 @@
+﻿@model MySite.Models.ModelValid
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+    <h1 id="probel"> </h1>
+</div>
+
+
+<div class ="row">
+    <div class="col-lg-9 mx-auto rounded border p-3">
+
+
+<form class="form-signup" id="contactForm" method="post" asp-action="SubmitForm" asp-controller="Home">
+    <!-- FirstName input -->
+    <div class="row input-group-newsletter">
+        <div class="row mb-3">
+            <div class=" col-sm-8">
+            <input asp-for="FirstName" class="form-control" placeholder="Enter your first name..." required />
+           </div>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- LastName input -->
+    <div class="row input-group-newsletter">
+        <div class="row mb-3">
+            <div class=" col-sm-8">
+            <input asp-for="LastName" class="form-control" placeholder="Enter your last name..." required />
+            </div>
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- Email input -->
+    <div class="row input-group-newsletter">
+        <div class="row mb-3">
+                    <div class=" col-sm-8">
+            <input asp-for="Email" class="form-control" placeholder="Enter email address..." required />
+                    </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+    </div>
+
+    <!-- Phone input -->
+    <div class="row input-group-newsletter">
+        <div class="row mb-3">
+                    <div class=" col-sm-8">
+            <input asp-for="Phone" class="form-control" placeholder="Enter phone number..." />
+                    </div>
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- Subject input -->
+    <div class="row input-group-newsletter">
+        <div class="row mb-3">
+           <div class=" col-sm-8">
+            <input asp-for="Subject" class="form-control" placeholder="Enter subject..." required />
+           </div>
+            <span asp-validation-for="Subject" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- Message input -->
+    <div class="row input-group-newsletter">
+        <div class="row mb-3">
+            <div class=" col-sm-8">
+            <textarea asp-for="Message" class="form-control" placeholder="Enter your message..." required></textarea>
+            </div>
+            <span asp-validation-for="Message" class="text-danger"></span>
+
+        </div>
+    </div>
+
+    <div class="row input-group-newsletter">
+        <div class="col-auto">
+            <button class="btn btn-success col-auto" type="submit">Submit</button>
+        </div>
+    </div>
+</form>
+
+    </div>
+</div>

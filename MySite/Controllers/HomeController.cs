@@ -16,8 +16,6 @@ namespace MySite.Controllers
 
         private readonly IEmailSender _emailsender;
 
-       
-
         public HomeController(ILogger<HomeController> logger, IEmailSender emailsender )
         {
             _logger = logger;
@@ -25,7 +23,6 @@ namespace MySite.Controllers
            
         }
 
-        
 
         public IActionResult Index()
         {
@@ -33,9 +30,35 @@ namespace MySite.Controllers
             return View();
         }
 
+        public IActionResult UploadFile()
+        {
+            return View();
+        }
+
+        public IActionResult ValidValidator()
+        {
+            return View(new ModelValid());
+        }
+
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SubmitForm(ModelValid model)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Success");
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Success()
+        {
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

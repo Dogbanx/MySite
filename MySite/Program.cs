@@ -5,13 +5,17 @@ using MySite.Infrastructure.Extensions;
 using Serilog;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
+using MySite.Services.EmailSender;
+using MySite.Services.FileUploadServer;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddServises();
+builder.Services.AddScoped<IFileUploadService, LocalFileUploadService>();
+builder.Services.AddRazorPages();
+
 
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
@@ -64,8 +68,11 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.MapRazorPages();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();
